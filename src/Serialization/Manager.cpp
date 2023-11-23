@@ -7,7 +7,7 @@ namespace Serialization {
         std::unique_lock lock(_lock);
         logger::info("serializing data");
     
-        if (!serial->OpenRecord(threadsRecord, 0)) {
+        if (!serial->OpenRecord(threadsRecord, 1)) {
             logger::error("Unable to open record to write cosave data.");
             return;
         }

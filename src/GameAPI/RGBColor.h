@@ -30,6 +30,8 @@ namespace GameAPI {
             };
         }
 
+        RGBColor mix(RGBColor other, float ratio);
+
         void loadSerial(GameSerializationInterface serial);
         void writeSerial(GameSerializationInterface serial);
     };

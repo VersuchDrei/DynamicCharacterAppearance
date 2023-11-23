@@ -8,8 +8,6 @@ namespace Util {
         static void setupForms();
 
         static inline GameAPI::GameColor getPlayerHairColor() { return DCA_PlayerHairColor; }
-
-        static inline std::vector<GameAPI::RGBColor> colors;
     private:
         static inline GameAPI::GameColor DCA_PlayerHairColor;
     };

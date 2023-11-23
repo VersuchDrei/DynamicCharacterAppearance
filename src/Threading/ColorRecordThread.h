@@ -14,6 +14,7 @@ namespace Threading {
         inline GameAPI::GameColor getColorRecord() { return color; }
 
         virtual void setColor(GameAPI::RGBColor color);
+        virtual GameAPI::RGBColor getColor();
         virtual void updateColor() = 0;
 
     private:

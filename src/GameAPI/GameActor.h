@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameColor.h"
+#include "GameSex.h"
 
 namespace GameAPI {
     struct GameActor : public GameRecord<RE::Actor> {
@@ -18,8 +19,21 @@ namespace GameAPI {
 
         inline bool isPlayer() const { return form->IsPlayerRef(); }
         inline std::string getName() const { return form->GetDisplayFullName(); }
+        bool isSex(GameSex sex) const;
 
         inline GameColor getHairColor() const { return form->GetActorBase()->headRelatedData->hairColor; }
-        inline void SetHairColor(GameColor color) const { form->GetActorBase()->SetHairColor(color.form); }
+        inline void setHairColor(GameColor color) const { form->GetActorBase()->SetHairColor(color.form); }
+        inline void updateHairColor() { form->UpdateHairColor(); }
+
+        inline float getHealthPercent() { return getAVPercent(form, RE::ActorValue::kHealth); }
+        inline float getStaminaPercent() { return getAVPercent(form, RE::ActorValue::kStamina); }
+        inline float getMagickaPercent() { return getAVPercent(form, RE::ActorValue::kMagicka); }
+
+    private:
+        inline static float getAVPercent(RE::Actor* actor, RE::ActorValue av) {
+            using func_t = decltype(getAVPercent);
+            REL::Relocation<func_t> func{RELOCATION_ID(36347, 37337)};
+            return func(actor, av);
+        }
     };
 }  // namespace GameAPI

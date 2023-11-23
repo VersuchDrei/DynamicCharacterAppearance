@@ -10,18 +10,53 @@ namespace Threading {
         for (GameAPI::RGBColor& color : colors) {
             color.loadSerial(serial);
         }
+    }
 
-        // TODO do this differently
-        colors = Util::FormTable::colors;
+    ComponentType RainbowColorComponent::getType() {
+        return TYPE;
     }
 
     void RainbowColorComponent::serialize(GameAPI::GameSerializationInterface serial) {
-        serial.write<ComponentType>(TYPE);
         serial.write<int>(idleTime);
         serial.write<int>(transitionTime);
         serial.write<size_t>(colors.size());
         for (GameAPI::RGBColor& color : colors) {
             color.writeSerial(serial);
+        }
+    }
+
+
+    size_t RainbowColorComponent::getColorCount() {
+        return colors.size();
+    }
+
+    GameAPI::RGBColor RainbowColorComponent::getColor(int index) {
+        if (index < 0 || index >= colors.size()) {
+            return {};
+        }
+
+        return colors[index];
+    }
+
+    void RainbowColorComponent::modifyColor(int index, std::function<void(GameAPI::RGBColor*)> mod) {
+        if (index < 0 || index >= colors.size()) {
+            return;
+        }
+
+        mod(&colors[index]);
+    }
+
+    bool RainbowColorComponent::canAddColor() {
+        return true;
+    }
+
+    void RainbowColorComponent::addColor() {
+        colors.push_back({255, 255, 255, 255});
+    }
+
+    void RainbowColorComponent::removeColor() {
+        if (colors.size() > 1) {
+            colors.resize(colors.size() - 1);
         }
     }
 
@@ -41,8 +76,7 @@ namespace Threading {
 
         if (isTransitioning) {
             int nextColor = (currentColor + 1) % colors.size();
-            float currentPercent = colorCountdown / static_cast<float>(transitionTime);
-            return colors[currentColor] * currentPercent + colors[nextColor] * (1.0f - currentPercent);
+            return colors[nextColor].mix(colors[currentColor], colorCountdown / static_cast<float>(transitionTime));
         } else {
             return colors[currentColor];
         }

@@ -17,4 +17,8 @@ namespace Threading {
         this->color.setColor(color);
         updateColor();
     }
+
+    GameAPI::RGBColor ColorRecordThread::getColor() {
+        return color.getColor();
+    }
 }

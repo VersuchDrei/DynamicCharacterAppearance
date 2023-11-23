@@ -21,16 +21,28 @@ configure_file(
         @ONLY)
 
 set(sources
+        src/GameAPI/GameActor.cpp
         src/GameAPI/GameColor.cpp
+        src/GameAPI/GameSex.cpp
         src/GameAPI/RGBColor.cpp
 	    src/Papyrus/Papyrus.cpp
 	    src/Papyrus/Script.h
         src/Serialization/Manager.cpp
+        src/Threading/Components/Component.cpp
+        src/Threading/Components/FallbackColorComponent.cpp
+        src/Threading/Components/HealthIndicatorColorComponent.cpp
+        src/Threading/Components/MagickaIndicatorColorComponent.cpp
         src/Threading/Components/RainbowColorComponent.cpp
+        src/Threading/Components/StaminaIndicatorColorComponent.cpp
+        src/Threading/Components/StatIndicatorColorComponent.cpp
         src/Threading/ActorThread.cpp
         src/Threading/ColorRecordThread.cpp
         src/Threading/ColorThread.cpp
         src/Threading/HairColorThread.cpp
+        src/Threading/OverlayType.cpp
+        src/Threading/OverlayColorThread.cpp
+        src/Threading/SubThread.cpp
+        src/Threading/SubThreadType.cpp
         src/Threading/ThreadManager.cpp
         src/Util/FormTable.cpp
         src/Main.cpp

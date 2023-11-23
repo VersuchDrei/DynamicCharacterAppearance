@@ -72,7 +72,6 @@ namespace Threading {
     void ThreadManager::postLoad() {
         if (threads.empty()) {
             threads.push_back(new ActorThread(GameAPI::GameActor::getPlayer()));
-            threads[0]->start();
         }
     }
 }

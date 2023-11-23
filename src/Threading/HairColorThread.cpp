@@ -18,7 +18,7 @@ namespace Threading {
             logger::info("actor wans't loaded");
             return;
         }
-        getActor().SetHairColor(getColorRecord());
+        getActor().setHairColor(getColorRecord());
     }
 
     void HairColorThread::stop() {
@@ -26,11 +26,11 @@ namespace Threading {
             logger::info("actor wans't loaded");
             return;
         }
-        getActor().SetHairColor(originalColor);
-        getActor().form->UpdateHairColor();
+        getActor().setHairColor(originalColor);
+        getActor().updateHairColor();
     }
 
     void HairColorThread::updateColor() {
-        getActor().form->UpdateHairColor();
+        getActor().updateHairColor();
     }
 }

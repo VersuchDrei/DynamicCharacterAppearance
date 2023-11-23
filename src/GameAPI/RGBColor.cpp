@@ -14,4 +14,9 @@ namespace GameAPI {
         serial.object->WriteRecordData(&blue, sizeof(blue));
         serial.object->WriteRecordData(&alpha, sizeof(alpha));
     }
+
+    RGBColor RGBColor::mix(RGBColor other, float ratio) {
+        // TODO make this a curve, not a line
+        return *this * (1.0f - ratio) + other * ratio;
+    }
 }
