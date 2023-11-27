@@ -13,13 +13,9 @@ namespace Threading {
         serial.write<int>(index);
     }
 
-    void OverlayColorThread::start() {
+    void OverlayColorThread::start() {}
 
-    }
-
-    void OverlayColorThread::stop() {
-
-    }
+    void OverlayColorThread::stop() {}
 
 
     int OverlayColorThread::getSettingCount() {
@@ -144,7 +140,7 @@ namespace Threading {
         auto vm = skyrimVM ? skyrimVM->impl : nullptr;
         if (vm) {
             RE::BSTSmartPointer<RE::BSScript::IStackCallbackFunctor> callback;
-            auto args = RE::MakeFunctionArguments<RE::Actor*, bool, std::string, int, float>(std::move(getActor().form), std::move(true), std::move(typeString), std::move(colorInt), std::move(alphaFloat));
+            auto args = RE::MakeFunctionArguments<RE::Actor*, bool, std::string, int, float>(std::move(getActor().form), std::move(isFemale), std::move(typeString), std::move(colorInt), std::move(alphaFloat));
             vm->DispatchStaticCall("DCA_SKSE", "ApplyOverlayColor", args, callback);
         }
     }

@@ -1,7 +1,7 @@
 #include "StatIndicatorColorComponent.h"
 
 namespace Threading {
-    StatIndicatorColorComponent::StatIndicatorColorComponent(GameAPI::GameActor actor, GameAPI::GameSerializationInterface serial, std::uint32_t version) : ColorComponent(actor) {
+    StatIndicatorColorComponent::StatIndicatorColorComponent(GameAPI::GameActor actor, GameAPI::GameSerializationInterface serial, std::uint32_t version) : ColorComponent(actor, serial, version) {
         colors = std::vector<std::pair<GameAPI::RGBColor, float>>(serial.read<size_t>());
         for (std::pair<GameAPI::RGBColor, float>& color : colors) {
             color.first.loadSerial(serial);
@@ -10,6 +10,8 @@ namespace Threading {
     }
 
     void StatIndicatorColorComponent::serialize(GameAPI::GameSerializationInterface serial) {
+        Component::serialize(serial);
+
         serial.write<size_t>(colors.size());
         for (std::pair<GameAPI::RGBColor, float>& color : colors) {
             color.first.writeSerial(serial);

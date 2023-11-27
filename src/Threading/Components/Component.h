@@ -8,9 +8,11 @@ namespace Threading {
     class Component {
     public:
         inline Component(GameAPI::GameActor actor) : actor{actor} {}
+        Component(GameAPI::GameActor actor, GameAPI::GameSerializationInterface serial, uint32_t version);
+
+        virtual void serialize(GameAPI::GameSerializationInterface serial);
 
         virtual ComponentType getType() = 0;
-        virtual void serialize(GameAPI::GameSerializationInterface serial) = 0;
 
         virtual size_t getColorCount();
         virtual GameAPI::RGBColor getColor(int index);

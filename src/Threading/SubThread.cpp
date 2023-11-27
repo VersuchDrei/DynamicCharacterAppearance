@@ -12,8 +12,9 @@ namespace Threading {
     std::string SubThread::getSettingFormat(int index) { return "{0}"; }
     float SubThread::getSettingMin(int index) { return 0.0f; }
     float SubThread::getSettingMax(int index) { return 0.0f; }
-    float SubThread::getSettingStep(int index) { return 1.0f; }
-    float SubThread::getSettingDefault(int index) { return 0.0f; }
+    float SubThread::getSettingInterval(int index) { return 1.0f; }
+    int SubThread::getSettingDefaultInt(int index) { return 0; }
+    float SubThread::getSettingDefaultFloat(int index) { return 0.0f; }
     std::vector<std::string> SubThread::getSettingOptions(int index) { return {}; }
     void SubThread::toggleSetting(int index) {}
     void SubThread::setSettingValue(int index, int value) {}

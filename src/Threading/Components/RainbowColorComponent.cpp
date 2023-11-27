@@ -3,7 +3,7 @@
 #include "Util/Constants.h"
 
 namespace Threading {
-    RainbowColorComponent::RainbowColorComponent(GameAPI::GameActor actor, GameAPI::GameSerializationInterface serial, std::uint32_t version) : ColorComponent(actor) {
+    RainbowColorComponent::RainbowColorComponent(GameAPI::GameActor actor, GameAPI::GameSerializationInterface serial, std::uint32_t version) : ColorComponent(actor, serial, version) {
         idleTime = serial.read<int>();
         transitionTime = serial.read<int>();
         colors = std::vector<GameAPI::RGBColor>(serial.read<size_t>());
@@ -12,17 +12,19 @@ namespace Threading {
         }
     }
 
-    ComponentType RainbowColorComponent::getType() {
-        return TYPE;
-    }
-
     void RainbowColorComponent::serialize(GameAPI::GameSerializationInterface serial) {
+        Component::serialize(serial);
+
         serial.write<int>(idleTime);
         serial.write<int>(transitionTime);
         serial.write<size_t>(colors.size());
         for (GameAPI::RGBColor& color : colors) {
             color.writeSerial(serial);
         }
+    }
+
+    ComponentType RainbowColorComponent::getType() {
+        return TYPE;
     }
 
 

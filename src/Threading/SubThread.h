@@ -21,8 +21,9 @@ namespace Threading{
         virtual std::string getSettingFormat(int index);
         virtual float getSettingMin(int index);
         virtual float getSettingMax(int index);
-        virtual float getSettingStep(int index);
-        virtual float getSettingDefault(int index);
+        virtual float getSettingInterval(int index);
+        virtual int getSettingDefaultInt(int index);
+        virtual float getSettingDefaultFloat(int index);
         virtual std::vector<std::string> getSettingOptions(int index);
         virtual void toggleSetting(int index);
         virtual void setSettingValue(int index, int value);

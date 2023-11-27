@@ -30,6 +30,7 @@ namespace GameAPI {
             };
         }
 
+        uint8_t getStrength();
         RGBColor mix(RGBColor other, float ratio);
 
         void loadSerial(GameSerializationInterface serial);

@@ -179,22 +179,31 @@ namespace PapyrusData {
         return subThread->getSettingMax(SubThreadSettingIndex);
     }
 
-    float GetSubThreadSettingStep(RE::StaticFunctionTag*, RE::Actor* actor, int subThreadType, int subThreadIndex, int SubThreadSettingIndex) {
+    float GetSubThreadSettingInterval(RE::StaticFunctionTag*, RE::Actor* actor, int subThreadType, int subThreadIndex, int SubThreadSettingIndex) {
         Threading::SubThread* subThread = getSubThread(actor, subThreadType, subThreadIndex);
         if (!subThread) {
-            return 0.0f;
+            return 1.0f;
         }
 
-        return subThread->getSettingStep(SubThreadSettingIndex);
+        return subThread->getSettingInterval(SubThreadSettingIndex);
     }
 
-    float GetSubThreadSettingDefault(RE::StaticFunctionTag*, RE::Actor* actor, int subThreadType, int subThreadIndex, int SubThreadSettingIndex) {
+    int GetSubThreadSettingDefaultInt(RE::StaticFunctionTag*, RE::Actor* actor, int subThreadType, int subThreadIndex, int SubThreadSettingIndex) {
+        Threading::SubThread* subThread = getSubThread(actor, subThreadType, subThreadIndex);
+        if (!subThread) {
+            return 0;
+        }
+
+        return subThread->getSettingDefaultInt(SubThreadSettingIndex);
+    }
+
+    float GetSubThreadSettingDefaultFloat(RE::StaticFunctionTag*, RE::Actor* actor, int subThreadType, int subThreadIndex, int SubThreadSettingIndex) {
         Threading::SubThread* subThread = getSubThread(actor, subThreadType, subThreadIndex);
         if (!subThread) {
             return 0.0f;
         }
 
-        return subThread->getSettingDefault(SubThreadSettingIndex);
+        return subThread->getSettingDefaultFloat(SubThreadSettingIndex);
     }
 
     std::vector<std::string> GetSubThreadSettingOptions(RE::StaticFunctionTag*, RE::Actor* actor, int subThreadType, int subThreadIndex, int SubThreadSettingIndex) {
@@ -384,8 +393,9 @@ namespace PapyrusData {
         BIND(GetSubThreadSettingFormat);
         BIND(GetSubThreadSettingMin);
         BIND(GetSubThreadSettingMax);
-        BIND(GetSubThreadSettingStep);
-        BIND(GetSubThreadSettingDefault);
+        BIND(GetSubThreadSettingInterval);
+        BIND(GetSubThreadSettingDefaultInt);
+        BIND(GetSubThreadSettingDefaultFloat);
         BIND(GetSubThreadSettingOptions);
         BIND(ToggleSubThreadSetting);
         BIND(SetSubThreadSettingValueInt);

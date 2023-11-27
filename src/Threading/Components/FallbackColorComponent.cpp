@@ -1,7 +1,7 @@
 #include "FallbackColorComponent.h"
 
 namespace Threading {
-    FallbackColorComponent::FallbackColorComponent(GameAPI::GameActor actor, GameAPI::GameSerializationInterface serial, std::uint32_t version) : ColorComponent(actor) {
+    FallbackColorComponent::FallbackColorComponent(GameAPI::GameActor actor, GameAPI::GameSerializationInterface serial, std::uint32_t version) : ColorComponent(actor, serial, version) {
         color.loadSerial(serial);
     }
 
@@ -10,6 +10,8 @@ namespace Threading {
     }
 
     void FallbackColorComponent::serialize(GameAPI::GameSerializationInterface serial) {
+        Component::serialize(serial);
+
         color.writeSerial(serial);
     }
 
