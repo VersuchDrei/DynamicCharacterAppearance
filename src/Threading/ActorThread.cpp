@@ -79,7 +79,7 @@ namespace Threading {
         case SubThreadType::OVERLAY_COLOR:
             overlayColorThreads.push_back(new OverlayColorThread(getActor()));
             if (running) {
-                (*overlayColorThreads.end())->start();
+                overlayColorThreads.back()->start();
             }
             break;
         }

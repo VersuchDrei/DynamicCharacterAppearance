@@ -40,6 +40,9 @@ namespace {
                 Util::FormTable::setupForms();
                 Threading::ThreadManager::startThread();
             } break;
+            case SKSE::MessagingInterface::kNewGame: {
+                Threading::ThreadManager::postLoad();
+            } break;
         }
     }
 }

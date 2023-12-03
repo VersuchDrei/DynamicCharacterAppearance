@@ -148,6 +148,6 @@ namespace Threading {
     }
 
     GameAPI::RGBColor OverlayColorThread::getColor() {
-        return {};
+        return {0, 0, 0, 255};
     }
 }
