@@ -26,6 +26,19 @@ namespace Threading {
         virtual void removeColor();
         virtual GameAPI::RGBColor getColor();
 
+        virtual int getSettingCount();
+        virtual SettingType getSettingType(int index);
+        virtual std::string getSettingName(int index);
+        virtual std::string getSettingTooltip(int index);
+        virtual int getSettingValueInt(int index);
+        virtual float getSettingValueFloat(int index);
+        virtual std::string getSettingFormat(int index);
+        virtual float getSettingMin(int index);
+        virtual float getSettingMax(int index);
+        virtual float getSettingInterval(int index);
+        virtual bool setSettingValue(int index, int value);
+        virtual bool setSettingValue(int index, float value);
+
     private:
         int idleTime = 1000;
         int transitionTime = 2000;

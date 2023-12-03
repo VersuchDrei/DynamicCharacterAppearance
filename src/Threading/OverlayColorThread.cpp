@@ -24,110 +24,112 @@ namespace Threading {
 
     SettingType OverlayColorThread::getSettingType(int index) {
         switch (index) {
-        case 0:
-            return SettingType::MENU;
-        case 1:
-            return SettingType::SLIDER;
-        default:
-            return SettingType::NO_SETTING;
+            case 0:
+                return SettingType::MENU;
+            case 1:
+                return SettingType::SLIDER;
+            default:
+                return SettingType::NO_SETTING;
         }
     }
 
     std::string OverlayColorThread::getSettingName(int index) {
         switch (index) {
-        case 0:
-            return "Overlay type";
-        case 1:
-            return "Overlay index";
-        default:
-            return "Error";
+            case 0:
+                return "Overlay type";
+            case 1:
+                return "Overlay index";
+            default:
+                return "Error";
         }
     }
 
     std::string OverlayColorThread::getSettingTooltip(int index) {
         switch (index) {
-        case 0:
-            return "The type of the overlay you want to define dynamic colors for.";
-        case 1:
-            return "The index of the overlay you want to define dynamic colors for.";
-        default:
-            return "Error";
+            case 0:
+                return "The type of the overlay you want to define dynamic colors for.";
+            case 1:
+                return "The index of the overlay you want to define dynamic colors for.";
+            default:
+                return "Error";
         }
     }
 
     int OverlayColorThread::getSettingValueInt(int index) {
         switch (index) {
-        case 0:
-            return type;
-        case 1:
-            return this->index;
-        default:
-            return 0;
+            case 0:
+                return type;
+            case 1:
+                return this->index;
+            default:
+                return 0;
         }
     }
 
     float OverlayColorThread::getSettingValueFloat(int index) {
         switch (index) {
-        case 0:
-            return type;
-        case 1:
-            return this->index;
-        default:
-            return 0.0f;
+            case 0:
+                return type;
+            case 1:
+                return this->index;
+            default:
+                return 0.0f;
         }
     }
 
     std::string OverlayColorThread::getSettingValueString(int index) {
         switch (index) {
-        case 0:
-            return OverlayTypeAPI::getTypeString(type);
-        case 1:
-            return std::to_string(this->index);
-        default:
-            return "";
+            case 0:
+                return OverlayTypeAPI::getTypeString(type);
+            case 1:
+                return std::to_string(this->index);
+            default:
+                return "";
         }
     }
 
     float OverlayColorThread::getSettingMax(int index) {
         switch (index) {
-        case 0:
-            return 3.0f;
-        case 1:
-            return 50.0f;
-        default:
-            return 0.0f;
+            case 0:
+                return 3.0f;
+            case 1:
+                return 50.0f;
+            default:
+                return 0.0f;
         }
     }
 
     std::vector<std::string> OverlayColorThread::getSettingOptions(int index) {
         switch (index) {
-        case 0:
-            return OverlayTypeAPI::typeStrings;
-        default:
-            return {};
+            case 0:
+                return OverlayTypeAPI::typeStrings;
+            default:
+                return {};
         }
     }
 
-    void OverlayColorThread::setSettingValue(int index, int value) {
+    bool OverlayColorThread::setSettingValue(int index, int value) {
         switch (index) {
-        case 0:
-            type = static_cast<OverlayType>(value);
-            break;
-        case 1:
-            this->index = value;
-            break;
+            case 0:
+                type = static_cast<OverlayType>(value);
+                break;
+            case 1:
+                this->index = value;
+                break;
         }
+        return false;
     }
 
-    void OverlayColorThread::setSettingValue(int index, float value) {
+    bool OverlayColorThread::setSettingValue(int index, float value) {
         switch (index) {
-        case 0:
-            type = static_cast<OverlayType>(value);
-            break;
-        case 1:
-            this->index = value;
-            break;
+            case 0:
+                type = static_cast<OverlayType>(value);
+                break;
+            case 1:
+                this->index = value;
+                break;
         }
+        return false;
     }
 
 

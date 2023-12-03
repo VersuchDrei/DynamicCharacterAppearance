@@ -83,4 +83,97 @@ namespace Threading {
             return colors[currentColor];
         }
     }
+
+
+    int RainbowColorComponent::getSettingCount() {
+        return 2;
+    }
+
+    SettingType RainbowColorComponent::getSettingType(int index) {
+        return SettingType::SLIDER;
+    }
+
+    std::string RainbowColorComponent::getSettingName(int index) {
+        switch (index) {
+            case 0:
+                return "Idle time";
+            case 1:
+                return "Transition time";
+            default:
+                return "Error";
+        }
+    }
+
+    std::string RainbowColorComponent::getSettingTooltip(int index) {
+        switch (index) {
+            case 0:
+                return "The time (in seconds) that this component will stay on a color.";
+            case 1:
+                return "The time (in seconds) that it takes this component to transition from one color to the next.";
+            default:
+                return "Error";
+        }
+    }
+
+    int RainbowColorComponent::getSettingValueInt(int index) {
+        switch (index) {
+            case 0:
+                return idleTime;
+            case 1:
+                return transitionTime;
+            default:
+                return 0;
+        }
+    }
+
+    float RainbowColorComponent::getSettingValueFloat(int index) {
+        switch (index) {
+            case 0:
+                return idleTime / 1000.0f;
+            case 1:
+                return transitionTime / 1000.0f;
+            default:
+                return 0.0f;
+        }
+    }
+
+    std::string RainbowColorComponent::getSettingFormat(int index) {
+        return "{1}";
+    }
+
+    float RainbowColorComponent::getSettingMin(int index) {
+        return 0.1f;
+    }
+
+    float RainbowColorComponent::getSettingMax(int index) {
+        return 10.0f;
+    }
+
+    float RainbowColorComponent::getSettingInterval(int index) {
+        return 0.1f;
+    }
+
+    bool RainbowColorComponent::setSettingValue(int index, int value) {
+        switch (index) {
+            case 0:
+                idleTime = value;
+                break;
+            case 1:
+                transitionTime = value;
+                break;
+        }
+        return false;
+    }
+
+    bool RainbowColorComponent::setSettingValue(int index, float value) {
+        switch (index) {
+            case 0:
+                idleTime = static_cast<int>(value * 1000);
+                break;
+            case 1:
+                transitionTime = static_cast<int>(value * 1000);
+                break;
+        }
+        return false;
+    }
 }

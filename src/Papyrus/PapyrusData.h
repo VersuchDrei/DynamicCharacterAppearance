@@ -216,31 +216,31 @@ namespace PapyrusData {
     }
 
 
-    void ToggleSubThreadSetting(RE::StaticFunctionTag*, RE::Actor* actor, int subThreadType, int subThreadIndex, int SubThreadSettingIndex) {
+    bool ToggleSubThreadSetting(RE::StaticFunctionTag*, RE::Actor* actor, int subThreadType, int subThreadIndex, int SubThreadSettingIndex) {
         Threading::SubThread* subThread = getSubThread(actor, subThreadType, subThreadIndex);
         if (!subThread) {
-            return;
+            return false;
         }
 
-        subThread->toggleSetting(SubThreadSettingIndex);
+        return subThread->toggleSetting(SubThreadSettingIndex);
     }
 
-    void SetSubThreadSettingValueInt(RE::StaticFunctionTag*, RE::Actor* actor, int subThreadType, int subThreadIndex, int SubThreadSettingIndex, int value) {
+    bool SetSubThreadSettingValueInt(RE::StaticFunctionTag*, RE::Actor* actor, int subThreadType, int subThreadIndex, int SubThreadSettingIndex, int value) {
         Threading::SubThread* subThread = getSubThread(actor, subThreadType, subThreadIndex);
         if (!subThread) {
-            return;
+            return false;
         }
 
-        subThread->setSettingValue(SubThreadSettingIndex, value);
+        return subThread->setSettingValue(SubThreadSettingIndex, value);
     }
 
-    void SetSubThreadSettingValueFloat(RE::StaticFunctionTag*, RE::Actor* actor, int subThreadType, int subThreadIndex, int SubThreadSettingIndex, float value) {
+    bool SetSubThreadSettingValueFloat(RE::StaticFunctionTag*, RE::Actor* actor, int subThreadType, int subThreadIndex, int SubThreadSettingIndex, float value) {
         Threading::SubThread* subThread = getSubThread(actor, subThreadType, subThreadIndex);
         if (!subThread) {
-            return;
+            return false;
         }
 
-        subThread->setSettingValue(SubThreadSettingIndex, value);
+        return subThread->setSettingValue(SubThreadSettingIndex, value);
     }
 #pragma endregion
 
@@ -267,8 +267,9 @@ namespace PapyrusData {
 
         subThread->setComponentType(componentIndex, static_cast<Threading::ComponentType>(componentType));
     }
+#pragma endregion
 
-
+#pragma region compoentcolors
     int GetComponentColorCount(RE::StaticFunctionTag*, RE::Actor* actor, int subThreadType, int subThreadIndex, int componentIndex) {
         Threading::Component* component = getComponent(actor, subThreadType, subThreadIndex, componentIndex);
         return component ? component->getColorCount() : -1;
@@ -300,8 +301,7 @@ namespace PapyrusData {
             return;
         }
 
-        Threading::SubThread* subThread =
-            thread->getSubThread(static_cast<Threading::SubThreadType>(SubThreadType), subThreadIndex);
+        Threading::SubThread* subThread = thread->getSubThread(static_cast<Threading::SubThreadType>(SubThreadType), subThreadIndex);
         if (!subThread) {
             return;
         }
@@ -369,6 +369,172 @@ namespace PapyrusData {
     }
 #pragma endregion
 
+#pragma region componentsettings
+    int GetComponentSettingCount(RE::StaticFunctionTag*, RE::Actor* actor, int subThreadType, int subThreadIndex, int componentIndex) {
+        Threading::Component* component = getComponent(actor, subThreadType, subThreadIndex, componentIndex);
+       if (!component) {
+            return -1;
+        }
+
+        return component->getSettingCount();
+    }
+
+    int GetComponentSettingType(RE::StaticFunctionTag*, RE::Actor* actor, int subThreadType, int subThreadIndex, int componentIndex, int componentSettingIndex) {
+        Threading::Component* component = getComponent(actor, subThreadType, subThreadIndex, componentIndex);
+        if (!component) {
+            return -1;
+        }
+
+        return static_cast<int>(component->getSettingType(componentSettingIndex));
+    }
+
+    std::string GetComponentSettingName(RE::StaticFunctionTag*, RE::Actor* actor, int subThreadType, int subThreadIndex, int componentIndex, int componentSettingIndex) {
+        Threading::Component* component = getComponent(actor, subThreadType, subThreadIndex, componentIndex);
+        if (!component) {
+            return "Error";
+        }
+
+        return component->getSettingName(componentSettingIndex);
+    }
+
+    std::string GetComponentSettingTooltip(RE::StaticFunctionTag*, RE::Actor* actor, int subThreadType, int subThreadIndex, int componentIndex, int componentSettingIndex) {
+        Threading::Component* component = getComponent(actor, subThreadType, subThreadIndex, componentIndex);
+        if (!component) {
+            return "Error";
+        }
+
+        return component->getSettingTooltip(componentSettingIndex);
+    }
+
+    bool GetComponentSettingValueBool(RE::StaticFunctionTag*, RE::Actor* actor, int subThreadType, int subThreadIndex, int componentIndex, int componentSettingIndex) {
+        Threading::Component* component = getComponent(actor, subThreadType, subThreadIndex, componentIndex);
+        if (!component) {
+            return false;
+        }
+
+        return component->getSettingValueBool(componentSettingIndex);
+    }
+
+    int GetComponentSettingValueInt(RE::StaticFunctionTag*, RE::Actor* actor, int subThreadType, int subThreadIndex, int componentIndex, int componentSettingIndex) {
+        Threading::Component* component = getComponent(actor, subThreadType, subThreadIndex, componentIndex);
+        if (!component) {
+            return 0;
+        }
+
+        return component->getSettingValueInt(componentSettingIndex);
+    }
+
+    float GetComponentSettingValueFloat(RE::StaticFunctionTag*, RE::Actor* actor, int subThreadType, int subThreadIndex, int componentIndex, int componentSettingIndex) {
+        Threading::Component* component = getComponent(actor, subThreadType, subThreadIndex, componentIndex);
+        if (!component) {
+            return 0.0f;
+        }
+
+        return component->getSettingValueFloat(componentSettingIndex);
+    }
+
+    std::string GetComponentSettingValueString(RE::StaticFunctionTag*, RE::Actor* actor, int subThreadType, int subThreadIndex, int componentIndex, int componentSettingIndex) {
+        Threading::Component* component = getComponent(actor, subThreadType, subThreadIndex, componentIndex);
+        if (!component) {
+            return "";
+        }
+
+        return component->getSettingValueString(componentSettingIndex);
+    }
+
+
+    std::string GetComponentSettingFormat(RE::StaticFunctionTag*, RE::Actor* actor, int subThreadType, int subThreadIndex, int componentIndex, int componentSettingIndex) {
+        Threading::Component* component = getComponent(actor, subThreadType, subThreadIndex, componentIndex);
+        if (!component) {
+            return "{0}";
+        }
+
+        return component->getSettingFormat(componentSettingIndex);
+    }
+
+    float GetComponentSettingMin(RE::StaticFunctionTag*, RE::Actor* actor, int subThreadType, int subThreadIndex, int componentIndex, int componentSettingIndex) {
+        Threading::Component* component = getComponent(actor, subThreadType, subThreadIndex, componentIndex);
+        if (!component) {
+            return 0.0f;
+        }
+
+        return component->getSettingMin(componentSettingIndex);
+    }
+
+    float GetComponentSettingMax(RE::StaticFunctionTag*, RE::Actor* actor, int subThreadType, int subThreadIndex, int componentIndex, int componentSettingIndex) {
+        Threading::Component* component = getComponent(actor, subThreadType, subThreadIndex, componentIndex);
+        if (!component) {
+            return 0.0f;
+        }
+
+        return component->getSettingMax(componentSettingIndex);
+    }
+
+    float GetComponentSettingInterval(RE::StaticFunctionTag*, RE::Actor* actor, int subThreadType, int subThreadIndex, int componentIndex, int componentSettingIndex) {
+        Threading::Component* component = getComponent(actor, subThreadType, subThreadIndex, componentIndex);
+        if (!component) {
+            return 1.0f;
+        }
+
+        return component->getSettingInterval(componentSettingIndex);
+    }
+
+    int GetComponentSettingDefaultInt(RE::StaticFunctionTag*, RE::Actor* actor, int subThreadType, int subThreadIndex, int componentIndex, int componentSettingIndex) {
+        Threading::Component* component = getComponent(actor, subThreadType, subThreadIndex, componentIndex);
+        if (!component) {
+            return 0;
+        }
+
+        return component->getSettingDefaultInt(componentSettingIndex);
+    }
+
+    float GetComponentSettingDefaultFloat(RE::StaticFunctionTag*, RE::Actor* actor, int subThreadType, int subThreadIndex, int componentIndex, int componentSettingIndex) {
+        Threading::Component* component = getComponent(actor, subThreadType, subThreadIndex, componentIndex);
+        if (!component) {
+            return 0.0f;
+        }
+
+        return component->getSettingDefaultFloat(componentSettingIndex);
+    }
+
+    std::vector<std::string> GetComponentSettingOptions(RE::StaticFunctionTag*, RE::Actor* actor, int subThreadType, int subThreadIndex, int componentIndex, int componentSettingIndex) {
+        Threading::Component* component = getComponent(actor, subThreadType, subThreadIndex, componentIndex);
+        if (!component) {
+            return {};
+        }
+
+        return component->getSettingOptions(componentSettingIndex);
+    }
+
+
+    bool ToggleComponentSetting(RE::StaticFunctionTag*, RE::Actor* actor, int subThreadType, int subThreadIndex, int componentIndex, int componentSettingIndex) {
+        Threading::Component* component = getComponent(actor, subThreadType, subThreadIndex, componentIndex);
+        if (!component) {
+            return false;
+        }
+
+        return component->toggleSetting(componentSettingIndex);
+    }
+
+    bool SetComponentSettingValueInt(RE::StaticFunctionTag*, RE::Actor* actor, int subThreadType, int subThreadIndex, int componentIndex, int componentSettingIndex, int value) {
+        Threading::Component* component = getComponent(actor, subThreadType, subThreadIndex, componentIndex);
+        if (!component) {
+            return false;
+        }
+
+        return component->setSettingValue(componentSettingIndex, value);
+    }
+
+    bool SetComponentSettingValueFloat(RE::StaticFunctionTag*, RE::Actor* actor, int subThreadType, int subThreadIndex, int componentIndex, int componentSettingIndex, float value) {
+        Threading::Component* component = getComponent(actor, subThreadType, subThreadIndex, componentIndex);
+        if (!component) {
+            return false;
+        }
+
+        return component->setSettingValue(componentSettingIndex, value);
+    }
+#pragma endregion
+
 
 	bool Bind(VM* a_vm) {
         const auto obj = "DCA_Data"sv;
@@ -417,6 +583,25 @@ namespace PapyrusData {
         BIND(CanAddComponentColor);
         BIND(AddComponentColor);
         BIND(RemoveComponentColor);
+
+        BIND(GetComponentSettingCount);
+        BIND(GetComponentSettingType);
+        BIND(GetComponentSettingName);
+        BIND(GetComponentSettingTooltip);
+        BIND(GetComponentSettingValueBool);
+        BIND(GetComponentSettingValueInt);
+        BIND(GetComponentSettingValueFloat);
+        BIND(GetComponentSettingValueString);
+        BIND(GetComponentSettingFormat);
+        BIND(GetComponentSettingMin);
+        BIND(GetComponentSettingMax);
+        BIND(GetComponentSettingInterval);
+        BIND(GetComponentSettingDefaultInt);
+        BIND(GetComponentSettingDefaultFloat);
+        BIND(GetComponentSettingOptions);
+        BIND(ToggleComponentSetting);
+        BIND(SetComponentSettingValueInt);
+        BIND(SetComponentSettingValueFloat);
 
         return true;
     }

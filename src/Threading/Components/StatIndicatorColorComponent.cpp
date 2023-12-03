@@ -41,8 +41,7 @@ namespace Threading {
     }
 
     bool StatIndicatorColorComponent::canAddColor() {
-        // TODO make this true
-        return false;
+        return true;
     }
 
     void StatIndicatorColorComponent::addColor() {
@@ -69,7 +68,106 @@ namespace Threading {
             }
         }
 
-        // TODO support more than two colors
-        return colors[1].first.mix(colors[0].first, lastStatPercent);
+        if (lastStatPercent >= colors.front().second) {
+            return colors.front().first;
+        }
+        if (lastStatPercent <= colors.back().second) {
+            return colors.back().first;
+        }
+
+        for (int i = 0; i < colors.size() - 1; i++) {
+            if (lastStatPercent > colors[i + 1].second) {
+                return colors[i + 1].first.mix(colors[i].first, (lastStatPercent - colors[i + 1].second) / (colors[i].second - colors[i + 1].second));
+            }
+        }
+
+        return {};
+    }
+
+    int StatIndicatorColorComponent::getSettingCount() {
+        return colors.size();
+    }
+
+    SettingType StatIndicatorColorComponent::getSettingType(int index) {
+        return SettingType::SLIDER;
+    }
+
+    std::string StatIndicatorColorComponent::getSettingName(int index) {
+        return "Color " + std::to_string(index + 1) + " threshold";
+    }
+
+    std::string StatIndicatorColorComponent::getSettingTooltip(int index) {
+        return "The threshold at which it should be fully at color " + std::to_string(index + 1) + ".";
+    }
+
+    int StatIndicatorColorComponent::getSettingValueInt(int index) {
+        if (index >= 0 && index < colors.size()) {
+            return static_cast<int>(colors[index].second * 100);
+        }
+        return 0.0f;
+    }
+
+    float StatIndicatorColorComponent::getSettingValueFloat(int index) {
+        if (index >= 0 && index < colors.size()) {
+            return colors[index].second * 100;
+        }
+        return 0.0f;
+    }
+
+    float StatIndicatorColorComponent::getSettingMax(int index) {
+        return 100.0f;
+    }
+
+    float StatIndicatorColorComponent::getSettingInterval(int index) {
+        return 1.0f;
+    }
+
+    bool StatIndicatorColorComponent::setSettingValue(int index, int value) {
+        if (index < 0 || index >= colors.size()) {
+            return false;
+        }
+
+        float actualValue = value / 100.0f;
+        colors[index].second = actualValue;
+
+        if (index != 0 && colors[index - 1].second < actualValue) {
+            sortColors();
+            return true;
+        }
+
+        if (index < (colors.size() - 1) && colors[index + 1].second > actualValue) {
+            sortColors();
+            return true;
+        }
+
+        return false;
+    }
+
+    bool StatIndicatorColorComponent::setSettingValue(int index, float value) {
+        if (index < 0 || index >= colors.size()) {
+            return false;
+        }
+
+        float actualValue = value / 100.0f;
+        colors[index].second = actualValue;
+
+        if (index != 0 && colors[index - 1].second < actualValue) {
+            sortColors();
+            return true;
+        }
+
+        if (index < (colors.size() - 1) && colors[index + 1].second > actualValue) {
+            sortColors();
+            return true;
+        }
+
+        return false;
+    }
+
+
+    void StatIndicatorColorComponent::sortColors() {
+        std::stable_sort(colors.begin(), colors.end(), [&](std::pair<GameAPI::RGBColor, float> pairA, std::pair<GameAPI::RGBColor, float> pairB) {
+            return pairA.second > pairB.second;
+        });
     }
 }

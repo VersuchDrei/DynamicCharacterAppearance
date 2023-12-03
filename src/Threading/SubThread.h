@@ -25,9 +25,9 @@ namespace Threading{
         virtual int getSettingDefaultInt(int index);
         virtual float getSettingDefaultFloat(int index);
         virtual std::vector<std::string> getSettingOptions(int index);
-        virtual void toggleSetting(int index);
-        virtual void setSettingValue(int index, int value);
-        virtual void setSettingValue(int index, float value);
+        virtual bool toggleSetting(int index);
+        virtual bool setSettingValue(int index, int value);
+        virtual bool setSettingValue(int index, float value);
 
         virtual Component* getComponent(int index) = 0;
 

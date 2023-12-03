@@ -16,9 +16,9 @@ namespace Threading {
     int SubThread::getSettingDefaultInt(int index) { return 0; }
     float SubThread::getSettingDefaultFloat(int index) { return 0.0f; }
     std::vector<std::string> SubThread::getSettingOptions(int index) { return {}; }
-    void SubThread::toggleSetting(int index) {}
-    void SubThread::setSettingValue(int index, int value) {}
-    void SubThread::setSettingValue(int index, float value) {}
+    bool SubThread::toggleSetting(int index) { return false; }
+    bool SubThread::setSettingValue(int index, int value) { return false; }
+    bool SubThread::setSettingValue(int index, float value) { return false; }
 
     void SubThread::setComponentColorToCurrent(int componentIndex, int colorIndex) {}
 }

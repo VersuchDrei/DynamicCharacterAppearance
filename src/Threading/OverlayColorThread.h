@@ -23,8 +23,8 @@ namespace Threading {
         virtual std::string getSettingValueString(int index);
         virtual float getSettingMax(int index);
         virtual std::vector<std::string> getSettingOptions(int index);
-        virtual void setSettingValue(int index, int value);
-        virtual void setSettingValue(int index, float value);
+        virtual bool setSettingValue(int index, int value);
+        virtual bool setSettingValue(int index, float value);
 
     protected:
         virtual void setColor(GameAPI::RGBColor color);

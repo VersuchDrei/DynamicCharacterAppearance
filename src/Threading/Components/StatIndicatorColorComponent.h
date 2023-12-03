@@ -21,11 +21,24 @@ namespace Threading {
         virtual void removeColor();
         virtual GameAPI::RGBColor getColor();
 
+        virtual int getSettingCount();
+        virtual SettingType getSettingType(int index);
+        virtual std::string getSettingName(int index);
+        virtual std::string getSettingTooltip(int index);
+        virtual int getSettingValueInt(int index);
+        virtual float getSettingValueFloat(int index);
+        virtual float getSettingMax(int index);
+        virtual float getSettingInterval(int index);
+        virtual bool setSettingValue(int index, int value);
+        virtual bool setSettingValue(int index, float value);
+
     protected:
         virtual float getStatPercent() = 0;
 
     private:
         float lastStatPercent = 1.0f;
         std::vector<std::pair<GameAPI::RGBColor, float>> colors;
+
+        void sortColors();
     };
 }
